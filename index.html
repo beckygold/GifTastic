@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>GifTastic</title>
+
+  </head>
+  <body>
+    <!-- Div to hold buttons -->
+    <!-- Div to hold gifs -->
+    <!-- jQuery -->
+
+    <!-- Giphy API and AJAX Request -->
+    <script>
+    var APIKey = "KpcorNJaMNjV2sH9h5lciBXqW3r9d2Rr";
+
+    var queryURL = "api.giphy.com/GET/v1/gifs/search"
+    
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function(response) {
+
+    });
+
+    </script>
+  </body>
+</html>
