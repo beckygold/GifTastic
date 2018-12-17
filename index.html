@@ -3,26 +3,92 @@
   <head>
     <meta charset="UTF-8">
     <title>GifTastic</title>
-
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
+
   <body>
-    <!-- Div to hold buttons -->
-    <!-- Div to hold gifs -->
-    <!-- jQuery -->
 
-    <!-- Giphy API and AJAX Request -->
-    <script>
-    var APIKey = "KpcorNJaMNjV2sH9h5lciBXqW3r9d2Rr";
+    <div class="row justify-content-md-center">
+      <div class="col-md-12">
+        <!-- Div to hold buttons -->
+        <div id="buttons">
+        </div>
+      </div>
+    </div>
 
-    var queryURL = "api.giphy.com/GET/v1/gifs/search"
+    <div class="row">
+      <!-- Div to hold gifs -->
+      <div class="col-md-8" id="gifs">
+      </div>
+
+      <!-- Div to add button -->
+      <div class="col-md-4" id="addButton">
+        <input class="form-control" type="text" placeholder="Default input">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+
+    
+
+    <!-- jQuery
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    Giphy API and AJAX Request
+    <script type="text/javascript">
+
+    var queryURL = "https://api.giphy.com/v1/gifs/trending?q=" + "&api_key=KpcorNJaMNjV2sH9h5lciBXqW3r9d2Rr";
     
     $.ajax({
       url: queryURL,
       method: "GET"
     }).then(function(response) {
+    }); 
+    </script> -->
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    var topics = ["superman", "batman", "wonder woman", "spiderman", "iron man", "captain america", "thor", "aquaman", "captain marvel", "batgirl", "supergirl"]
+    // $.each(topics, function(i, hero) {
+    // $(‘#buttons’).append(‘<button>’ + topics[i] + ‘</button>’)
+    // });
+    for (var i = 0; i < topics.length; i++) {
+        $("#buttons").append(" " + "<button class='btn btn-primary'" + " data-person=" + "'" + topics[i] + "'" + ">" + topics[i] + "</button>");
+      }
+
+
+    $("button").on("click", function() {
+      var person = $(this).attr("data-person");
+      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+        person + "&api_key=KpcorNJaMNjV2sH9h5lciBXqW3r9d2Rr";
+
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+        .then(function(response) {
+          var results = response.data;
+
+          for (var i = 0; i < results.length; i++) {
+            var gifDiv = $("<div>");
+
+            var rating = results[i].rating;
+
+            var p = $("<p>").text("Rating: " + rating);
+
+            var personImage = $("<img>");
+            personImage.attr("src", results[i].images.fixed_height.url);
+
+            gifDiv.prepend(p);
+            gifDiv.prepend(personImage);
+
+            $("#gifs").prepend(gifDiv);
+          }
+        });
     });
-
-    </script>
+  </script>
   </body>
 </html>
