@@ -27,39 +27,21 @@
 
       <!-- Div to add button -->
       <div class="col-md-4" id="addButton">
-        <input class="form-control" type="text" placeholder="Default input">
+        <input class="form-control" type="text" placeholder="Add a button!">
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
 
-    
-
-    <!-- jQuery
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    Giphy API and AJAX Request
-    <script type="text/javascript">
-
-    var queryURL = "https://api.giphy.com/v1/gifs/trending?q=" + "&api_key=KpcorNJaMNjV2sH9h5lciBXqW3r9d2Rr";
-    
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function(response) {
-    }); 
-    </script> -->
-
+  <!-- jQuery and AJAX request -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
     var topics = ["superman", "batman", "wonder woman", "spiderman", "iron man", "captain america", "thor", "aquaman", "captain marvel", "batgirl", "supergirl"]
-    // $.each(topics, function(i, hero) {
-    // $(‘#buttons’).append(‘<button>’ + topics[i] + ‘</button>’)
-    // });
+    
     for (var i = 0; i < topics.length; i++) {
         $("#buttons").append(" " + "<button class='btn btn-primary'" + " data-person=" + "'" + topics[i] + "'" + ">" + topics[i] + "</button>");
       }
 
-
+    // On click function that grabs 10 non-animated gifs and displays rating when corresponding button is clicked
     $("button").on("click", function() {
       var person = $(this).attr("data-person");
       var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
@@ -89,6 +71,11 @@
           }
         });
     });
+
+    // on click function for clicking static gifs and animating them and vice-versa
+
+    // function call that adds user input into 'topics' array and reloads all buttons on page
+    
   </script>
   </body>
 </html>
